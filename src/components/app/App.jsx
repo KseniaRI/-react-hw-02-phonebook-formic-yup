@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { nanoid } from 'nanoid';
-import { PageTitle } from './page-title/PageTitle';
-import { Form } from './form/Form';
-import { SectionTitle } from './section-title/SectionTitle';
-import { Filter } from './filter/Filter';
-import { ContactList } from './contact-list/ContactList';
+import { PageTitle } from '../page-title/PageTitle';
+import { PhonebookForm } from '../phonebook-form/PhonebokForm';
+import { SectionTitle } from '../section-title/SectionTitle';
+import { Filter } from '../filter/Filter';
+import { ContactList } from '../contact-list/ContactList';
+import { Container } from './App.styled';
+ 
 
 export class App extends Component{
   state = {
@@ -18,7 +20,7 @@ export class App extends Component{
     filter: '',
   };
   
-  formSubmitHandler = ({ name, number }) => {
+  formSubmitHandler = ({ name, number }, { resetForm }) => {
     const { contacts } = this.state;
     const contactNames = contacts.map(contact => contact.name);
 
@@ -30,6 +32,7 @@ export class App extends Component{
       { contacts: [...prevState.contacts, newContact] })
     );
     }
+    resetForm();
   }
   
   changeFilter = (evt) => {
@@ -47,13 +50,13 @@ export class App extends Component{
     const { filter } = this.state;
     const visibleContacts = this.getVisibleContacts();
     return (
-    <>
+    <Container>
       <PageTitle title="Phonebook" />
-      <Form onSubmit={this.formSubmitHandler} />
+      <PhonebookForm onSubmit={this.formSubmitHandler} /> 
       <SectionTitle title="Contacts"/>
       <Filter value={filter} onChange={this.changeFilter} />
       <ContactList contacts={visibleContacts} deleteContact={this.deleteContact} />
-    </>
+    </Container>
     )
   }
 };

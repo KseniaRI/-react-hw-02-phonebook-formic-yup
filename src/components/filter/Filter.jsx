@@ -1,8 +1,15 @@
 import { nanoid } from 'nanoid';
+import { FilterTitle, FilterWrap, FilterInput } from './Filter.styled';
+import PropTypes from 'prop-types';
+
 const filterId = nanoid();
 
 export const Filter = ({ value, onChange }) =>
-    
-    <label htmlFor={filterId}>Find Contacts by name
-        <input type="text" value={value} onChange={onChange} id={filterId} />
-    </label>;
+    <FilterWrap>
+        <FilterTitle htmlFor={filterId}>Find Contacts by name</FilterTitle>
+        <FilterInput type="text" value={value} onChange={onChange} id={filterId} />
+    </FilterWrap>;
+
+Filter.propTypes = {
+    value: PropTypes.string.isRequired
+}
